@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Reddit Mass Unhide
 // @author       TheFallender
-// @version      1.0
+// @version      1.1
 // @description  This script will unhide all your hidden posts, cause reddit sucks and doesn't have this feature by default.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/RedditMassUnhide/RedditMassUnhide.user.js
@@ -22,9 +22,6 @@
     //Wait time: Time to wait between changes.
     const timeBetweenWaits = 250;
 
-    //Debug mode
-    const debug = false;
-
     //Hidden posts var
     let currentHiddenPosts = [];
 
@@ -36,7 +33,7 @@
 
     window.onload = async function() {
         //Timeout for each transition
-        setInterval(function() {
+        const interval = setInterval(function() {
             //Refresh hidden posts list
 			if (currentHiddenPosts.length == 0) {
                 //Scroll to the bottom to force a refresh
@@ -53,6 +50,7 @@
 
                 //Increase iterations
                 if (++iterations >= iterationsLimit) {
+                    clearInterval(interval);
                     location.reload();
 				}
 			}
