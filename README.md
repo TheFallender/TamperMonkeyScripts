@@ -1,0 +1,2 @@
+# TamperMonkeyScripts
+Scripts for Tampermonkey
