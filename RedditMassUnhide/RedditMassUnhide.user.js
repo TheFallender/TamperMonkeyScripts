@@ -31,6 +31,9 @@
     //Iteration limit
     let iterationsLimit = 10;
 
+    //Post notification hidden
+    let isPostNotificationHidden = false;
+
     window.onload = async function() {
         //Timeout for each transition
         const interval = setInterval(function() {
@@ -42,12 +45,6 @@
                 //Get posts
 				currentHiddenPosts = $("button:has(span:contains('unhide'))").toArray();
 
-                //Remove the toasts
-                let divOfTheToasts = $("div:has(> div > div > svg.CloseIcon)").toArray();
-                if (divOfTheToasts.length > 0) {
-                    divOfTheToasts[0].remove();
-                }
-
                 //Increase iterations
                 if (++iterations >= iterationsLimit) {
                     clearInterval(interval);
@@ -57,6 +54,16 @@
 
 			//Unhide hidden post
 			currentHiddenPosts.shift().click();
+
+            //Remove post notifications
+            if (isPostNotificationHidden) {
+                //Remove the toasts
+                let divOfTheToasts = $("div:has(> div > div > svg.CloseIcon)").toArray();
+                if (divOfTheToasts.length > 0) {
+                    divOfTheToasts[0].remove();
+                    isPostNotificationHidden = true;
+                }
+            }
         }, timeBetweenWaits);
     }
 })();
