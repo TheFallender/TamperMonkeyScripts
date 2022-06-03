@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.5
+// @version      1.6
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
@@ -14,19 +14,11 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
-    //Search wait
-    const promiseWait = [
-        //ms to wait
-        100,
-        //Times to perform the search before giving up
-        100
-    ]
-
     //Main selector for the show more
-    const selector = '[aria-label="Followed Channels"] > div > Button';
+    const followedChannelsSelector = '[aria-label="Followed Channels"] > div > Button';
 
     //Side Nav Bloat
     const sideNavBloatRemove = true;
@@ -37,23 +29,41 @@
         'div.find-me'
     ];
 
-    window.onload = async function() {
-        //Show more button variable
-        let showMoreElement = null;
-
-        //Wait until the page is fully loaded and it's able to get the element
-        for (let i = 0; !showMoreElement; showMoreElement = document.querySelector(selector), i++) {
-            await new Promise(t => setTimeout(t, promiseWait[0]));
-            if (i == promiseWait[1]) {
-                console.log("TwitchShowMore ERROR: Selector not found.");
-                return;
+    //Method to wait for an element in the DOM
+    function waitForElement(selector) {
+        return new Promise(resolve => {
+            //Return the element if it is already in the DOM
+            if (document.querySelector(selector)) {
+                return resolve(document.querySelector(selector));
             }
-        }
+
+            //Wait for the element to be in the DOM
+            const observer = new MutationObserver(mutations => {
+                if (document.querySelector(selector)) {
+                    resolve(document.querySelector(selector));
+                    observer.disconnect();
+                }
+            });
+
+            //Observer settings
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    //Wait until the followed channel button is loaded
+    waitForElement(followedChannelsSelector).then((element) => {
+        //Assign the show more element to the one it waited for
+        let showMoreElement = element;
 
         //Loop until the Toggle doesn't have the "Show More" text
-        for (; showMoreElement && showMoreElement.textContent == "Show More"; showMoreElement = document.querySelector(selector)) {
+        for (; showMoreElement && showMoreElement.textContent == "Show More"; showMoreElement = document.querySelector(followedChannelsSelector)) {
             showMoreElement.click();
         }
+
+        //Hide the show more/show less button
         showMoreElement.style.display = "none";
 
         //Delete the side navigation bloat
@@ -65,5 +75,5 @@
                 }
             });
         }
-    }
+    });
 })();
