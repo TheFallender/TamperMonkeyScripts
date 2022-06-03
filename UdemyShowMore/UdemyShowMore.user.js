@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Udemy Show More
 // @author       TheFallender
-// @version      1.3
+// @version      1.4
 // @description  A script that will show all your elements in your collections.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/UdemyShowMore/UdemyShowMore.user.js
@@ -14,52 +14,60 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
-    //Search wait
-    const promiseWait = [
-        //ms to wait
-        100,
-        //Times to perform the search before giving up
-        100
-    ]
-
-    //Main selector for the show more
-    const selector = 'div[role="button"][data-purpose="load-more-courses-for-collection"]';
+    //Main selector for the load more courses
+    const loadMoreCourses = 'div > button[data-purpose="load-more-courses-for-collection"]';
 
     //Ratings
     const removeRatings = true;
-    const ratingsSelector = '.details__bottom--review';
+    const ratingsSelector = 'button[data-purpose="review-button"]';
 
-    window.onload = async function() {
-        //See more list
-        let seeMoreList = document.querySelectorAll(selector);
-
-        //Wait until the page is fully loaded and it's able to get the element
-        for (let i = 0; seeMoreList.length === 0; seeMoreList = document.querySelectorAll(selector), i++) {
-            await new Promise(t => setTimeout(t, promiseWait[0]));
-            if (i == promiseWait[1]) {
-                console.log("UdemyShowMore ERROR: Selector not found.");
-                return;
+    //Method to wait for an element in the DOM
+    function waitForElement(selector) {
+        return new Promise(resolve => {
+            //Return the element if it is already in the DOM
+            if (document.querySelector(selector)) {
+                return resolve(document.querySelector(selector));
             }
-        }
+
+            //Wait for the element to be in the DOM
+            const observer = new MutationObserver(mutations => {
+                if (document.querySelector(selector)) {
+                    resolve(document.querySelector(selector));
+                    observer.disconnect();
+                }
+            });
+
+            //Observer settings
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    //Wait until the load more courses button is loaded
+    waitForElement(loadMoreCourses).then((element) => {
+        //See more list
+        let seeMoreList = document.querySelectorAll(loadMoreCourses);
 
         //Loop all of the elements
-        seeMoreList.forEach (element => {
-            element.click();
-            element.style.display = "none";
+        seeMoreList.forEach(elem => {
+            elem.click();
+            elem.style.display = "none";
         });
 
         //Reset scroll
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
 
         //Remove Ratings
         if (removeRatings) {
-            let elementSearch = document.querySelector(ratingsSelector);
-            if (elementSearch) {
-                elementSearch.setAttribute('style', 'display: none !important');
-            }
+            let ratingsList = document.querySelectorAll(ratingsSelector);
+            ratingsList.forEach(elem => {
+                elem.style.display = "none";
+            });
         }
-    }
+    });
 })();
