@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Itch.io Bundle Claim
 // @author       TheFallender
-// @version      1.5
+// @version      1.5.1
 // @description  This script will claim all the items in a bundle slowly, without sending too many requests to the website
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/ItchioBundleClaim/ItchIoBundleClaim.user.js
@@ -26,6 +26,9 @@
 
     //Next button selector
     let nextButtonSelector = "a.next_page.button"
+
+    //Filter options load
+    let filterOptionsSelector = "div.filter_options > div > a.button"
 
     //Game row selector
     let gameRowSelector = "button[value='claim']"
@@ -59,7 +62,7 @@
         //Detect if the current URL belongs to a bundle
         if (window.location.href.includes("https://itch.io/bundle/download/")) {
             //Wait until the game rows are loaded
-            waitForElement(nextButtonSelector).then((element) => {
+            waitForElement(filterOptionsSelector).then((element) => {
                 //Game list
                 let gameRow = document.querySelector(gameRowSelector);
                 //Check if there are claimable games
