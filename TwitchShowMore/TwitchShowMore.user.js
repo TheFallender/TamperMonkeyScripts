@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.8.0
+// @version      1.8.1
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
@@ -50,6 +50,13 @@
         });
     }
 
+    //Method to remove the element after finding it
+    function waitForElementAndRemove(selector) {
+        waitForElement(selector).then(element => {
+            element.setAttribute('style', 'display: none !important');
+        });
+    }
+
     //Wait until the followed channel button is loaded
     waitForElement(followedChannelsSelector).then((element) => {
         //Assign the show more element to the one it waited for
@@ -62,10 +69,10 @@
 
         //Hide the show more/show less button
         showMoreElement.setAttribute('style', 'display: none !important');
+    });
 
-        //Delete the side navigation bloat
-        sideNavBloat.forEach(element => {
-            document.querySelector(element)?.setAttribute('style', 'display: none !important');
-        });
+    //Remove the side nav bloat
+    sideNavBloat.forEach(element => {
+        waitForElementAndRemove(element);
     });
 })();
