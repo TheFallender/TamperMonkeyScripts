@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Reddit Mass Unhide
 // @author       TheFallender
-// @version      1.2
+// @version      1.2.1
 // @description  This script will unhide all your hidden posts, cause reddit sucks and doesn't have this feature by default.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/RedditMassUnhide/RedditMassUnhide.user.js
@@ -20,7 +20,7 @@
     'use strict';
 
     //Wait time: Time to wait between changes.
-    const timeBetweenWaits = 250;
+    const timeBetweenWaits = 150;
 
     //Hidden posts var
     let currentHiddenPosts = [];
@@ -29,7 +29,12 @@
     let iterations = 0;
 
     //Iteration limit
-    let iterationsLimit = 10;
+    const iterationsLimit = 10;
+
+    //Selector items
+    const postsLoaded = ".Post.scrollerItem";
+    const postsHidden = "button:has(span:contains('unhide'))";
+    const postToasts = "div:has(> div > div > svg.CloseIcon)";
 
     //Post notification hidden
     let isPostNotificationHidden = false;
@@ -60,7 +65,7 @@
 
     //Wait until the posts are loaded, if there are none
     //the script will be stalled here
-    waitForElement('.Post.scrollerItem').then((element) => {
+    waitForElement(postsLoaded).then((element) => {
         //Timeout for each transition
         const interval = setInterval(() => {
             //Refresh hidden posts list
@@ -69,7 +74,7 @@
                 window.scrollTo(0, document.body.scrollHeight);
 
                 //Get posts
-                currentHiddenPosts = $("button:has(span:contains('unhide'))").toArray();
+                currentHiddenPosts = $(postsHidden).toArray();
 
                 //Increase iterations
                 if (++iterations >= iterationsLimit) {
@@ -80,17 +85,17 @@
 
             //Unhide hidden post
             currentHiddenPosts.shift().click();
-
-            //Remove post notifications
-            if (!isPostNotificationHidden) {
-                //Remove the toasts
-                let divOfTheToasts = $("div:has(> div > div > svg.CloseIcon)").toArray();
-                if (divOfTheToasts.length > 0) {
-                    divOfTheToasts[0].remove();
-                    isPostNotificationHidden = true;
-                }
-            }
         }, timeBetweenWaits);
+    });
+
+    //Wait until the posts are loaded, if there are none
+    //the script will be stalled here
+    waitForElement(postsLoaded).then(() => {
+        //Remove the toasts
+        let divOfTheToasts = $(postToasts).toArray();
+        if (divOfTheToasts.length > 0) {
+            divOfTheToasts[0].remove();
+        }
     });
 
 })();
