@@ -36,9 +36,6 @@
     const postsHidden = "button:has(span:contains('unhide'))";
     const postToasts = "div:has(> div > div > svg.CloseIcon)";
 
-    //Post notification hidden
-    let isPostNotificationHidden = false;
-
     //Method to wait for an element in the DOM
     function waitForElement(selector) {
         return new Promise(resolve => {
