@@ -1,20 +1,20 @@
 // ==UserScript==
 // @name         Udemy Show More
 // @author       TheFallender
-// @version      1.4
+// @version      1.4.1
 // @description  A script that will show all your elements in your collections.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/UdemyShowMore/UdemyShowMore.user.js
 // @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/UdemyShowMore/UdemyShowMore.user.js
 // @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
-// @match        https://www.udemy.com/home/my-courses/lists/
+// @match        https://www.udemy.com/home/my-courses/lists*
 // @icon         https://www.google.com/s2/favicons?domain=udemy.com
 // @license      MIT
 // @copyright    Copyright © 2021 TheFallender
 // @grant        none
 // ==/UserScript==
 
-(function () {
+(function() {
     'use strict';
 
     //Main selector for the load more courses
@@ -54,13 +54,13 @@
         let seeMoreList = document.querySelectorAll(loadMoreCourses);
 
         //Loop all of the elements
-        seeMoreList.forEach(elem => {
+        seeMoreList.forEach (elem => {
             elem.click();
             elem.style.display = "none";
         });
 
         //Reset scroll
-        window.scrollTo(0, 0);
+        window.scrollTo(0,0);
 
         //Remove Ratings
         if (removeRatings) {
