@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.8.1
+// @version      1.8.2
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
@@ -18,7 +18,7 @@
     'use strict';
 
     //Main selector for the show more
-    const followedChannelsSelector = '[aria-label="Followed Channels"] > div > Button';
+    const followedChannelsSelector = '[aria-label="Followed Channels"] > div > Button[data-a-target="side-nav-show-more-button"]';
 
     //Side Nav Bloat
     const sideNavBloat = [
