@@ -18,7 +18,7 @@
     'use strict';
 
     //Main selector for the show more
-    const followedChannelsSelector = '[aria-label="Followed Channels"] > div > Button[data-a-target="side-nav-show-more-button"]';
+    const followedChannelsSelector = 'div.side-nav-show-more-toggle__button button';
 
     //Side Nav Bloat
     const sideNavBloat = [
