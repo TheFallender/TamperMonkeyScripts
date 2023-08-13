@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.9.0
+// @version      1.9.1
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
