@@ -72,7 +72,7 @@
     });
 
     //Remove the side nav bloat
-    function remove_bloat () {
+    function removeBloat () {
         let oldHref = "";
         const body = document.querySelector("body");
         const observer = new MutationObserver(mutations => {
@@ -88,5 +88,5 @@
         observer.observe(body, { childList: true, subtree: true });
     }
 
-    remove_bloat();
+    removeBloat();
 })();

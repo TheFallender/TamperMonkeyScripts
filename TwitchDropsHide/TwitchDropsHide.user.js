@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.0
+// @version      1.1.0
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -17,13 +17,32 @@
 (function () {
     'use strict';
 
+    // Drops to always show
+    const dropsToShow = [
+        "Apex Legends",
+        "Baldur's Gate 3",
+        "BattleBit Remastered",
+        "Escape from Tarkov",
+        "Genshin Impact",
+        "Halo Infinite",
+        "HAWKED",
+        "Marauders",
+        "Overwatch 2",
+        "PAYDAY 2",
+        "Rust",
+        "Sea of Thieves"
+    ];
+
     // Which drops to hide
     const dropsToHide = [
         "Aether Gazer",
         "Albion Online",
+        "Apex Legends",
         "ArcheAge",
         "Arena Breakout",
+        "Baldur's Gate 3",
         "Battle Teams 2",
+        "BattleBit Remastered",
         "Black Desert",
         "Conan Exiles",
         "Crossfire",
@@ -35,16 +54,21 @@
         "Dungeon of the Endless",
         "Elite: Dangerous",
         "Epic Seven",
+        "Escape from Tarkov",
         "Eternal Return",
         "Evilmun Family",
         "Farlight 84",
         "FIFA 23",
         "For Honor",
+        "Fortnite",
         "Freestyle Football R",
+        "Genshin Impact",
         "Ghostbusters: Spirits Unleashed",
         "Goose Goose Duck",
         "Gundam Evolution",
         "Gwent: The Witcher Card Game",
+        "Halo Infinite",
+        "HAWKED",
         "Hearthstone",
         "Honor of Kings",
         "HUMANKIND",
@@ -56,6 +80,7 @@
         "King of the Castle",
         "Legion TD 2",
         "Lost Ark",
+        "Marauders",
         "Marbles on Stream",
         "Mir Korabley",
         "Mir Tankov",
@@ -63,7 +88,9 @@
         "New World",
         "Nitro: Stream Racing",
         "Out of the Park Baseball 24",
+        "Overwatch 2",
         "Paladins",
+        "PAYDAY 2",
         "Project Genesis",
         "Project Winter",
         "Race Day Rampage",
@@ -71,7 +98,9 @@
         "RavenQuest",
         "Relic Hunters Legend",
         "Rise Online",
+        "Rust",
         "Rocket League",
+        "Sea of Thieves",
         "Shatterline",
         "Shakes and Fidget",
         "Slapshot Rebound",
@@ -156,12 +185,30 @@
         });
     }
 
-    //Wait until the followed channel button is loaded
-    waitForElement(dropsListSel, true).then((element) => {
-        Array.from(element).forEach((drop) => {
-            if (dropsToHide.includes(drop.querySelector(dropTitleSel).innerText)) {
-                drop.setAttribute('style', 'display: none !important');
-            }
+    //Remove the side nav bloat
+    function removeDrops () {
+        let oldHref = "";
+        const body = document.querySelector("body");
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(() => {
+                if (oldHref !== document.location.href && document.location.href.includes("/drops/campaigns")) {
+                    oldHref = document.location.href;
+                    //Wait for the drops
+                    waitForElement(dropsListSel, true).then((element) => {
+                        Array.from(element).forEach((drop) => {
+                            if (dropsToShow.includes(drop.querySelector(dropTitleSel).innerText)) {
+                                return;
+                            }
+                            if (dropsToHide.includes(drop.querySelector(dropTitleSel).innerText)) {
+                                drop.setAttribute('style', 'display: none !important');
+                            }
+                        });
+                    });
+                }
+            });
         });
-    });
+        observer.observe(body, { childList: true, subtree: true });
+    }
+
+    removeDrops();
 })();
