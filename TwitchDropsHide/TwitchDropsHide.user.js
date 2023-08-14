@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.0
+// @version      1.1.1
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
 // @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
 // @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
-// @match        https://www.twitch.tv/drops/*
+// @match        https://www.twitch.tv/*
 // @icon         https://www.google.com/s2/favicons?domain=twitch.tv
 // @license      MIT
 // @copyright    Copyright © 2021 TheFallender
