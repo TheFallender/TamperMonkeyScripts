@@ -10,7 +10,7 @@
 // @match        https://www.twitch.tv/*
 // @icon         https://www.google.com/s2/favicons?domain=twitch.tv
 // @license      MIT
-// @copyright    Copyright © 2021 TheFallender
+// @copyright    Copyright © 2023 TheFallender
 // @grant        none
 // ==/UserScript==
 
