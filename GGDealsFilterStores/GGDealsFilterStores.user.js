@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GG.deals filter stores
 // @author       TheFallender
-// @version      1.0.0
+// @version      1.0.1
 // @description  A script that hides the stores and clicks the "Show all deals" button on GGdeals
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
@@ -44,15 +44,21 @@
         "Play-Asia",
         "Yuplay"
     ];
-    
+
     // Lowercase the stores
     storesToHide.forEach((store, index) => {
         storesToHide[index] = store.toLowerCase();
     });
 
     //Main selector for the show more
-    const storeSelector = 'div.similar-deals-container';
+    const storeSelector = 'div.similar-deals-container > div.game-deals-item';
     const showAllDealsButton = 'div.btn-show-more-container > button.btn-show-more';
+    const listsOfDeals = 'div.offer-section > div.game-deals-container > div';
+
+    // Sleep method for easier use
+    function sleep (msTime) {
+        return new Promise(r => setTimeout(r, msTime));
+    }
 
     //Method to wait for an element in the DOM
     function waitForElement(selector, selectorAll = false) {
@@ -98,21 +104,40 @@
     // Filter the Stores
     function filterStore () {
         document.querySelectorAll(storeSelector).forEach((store) => {
-            const storeName = store.firstChild().dataShopName.toLowerCase();
-            if (storesToHide.includes(storeName)) {
-                store.remove();
+            const storeName = store.getAttribute('data-shop-name');
+            if (storesToHide.includes(storeName.toLowerCase())) {
+                store.parentNode.remove();
             }
         });
     }
 
     //Wait for buttons
-    waitForElement(showAllDealsButton, true).then((showMorebuttons) => {
+    waitForElement(showAllDealsButton, true).then(async (showMorebuttons) => {
+        // Click the buttons
         Array.from(showMorebuttons).forEach((button) => {
             button.click();
             button.parentNode.remove(button);
         });
-        waitForElement(storeSelector, false).then(() => {
-            filterStore();
+        
+        // Wait for the lists to be loaded
+        let observerList = [];
+        document.querySelectorAll(listsOfDeals).forEach((list) => {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                        filterStore();
+                    }
+                })
+            });
+            observer.observe(list, {childList: true, attributes: true, subtree: true});
+            observer.
+            observerList.push(observer);
+        });
+        await sleep(3000);
+
+        // Disconnect the observers
+        observerList.forEach((observer) => {
+            observer.disconnect();
         });
     });
 
