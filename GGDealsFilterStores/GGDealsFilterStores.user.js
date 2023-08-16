@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GG.deals filter stores
 // @author       TheFallender
-// @version      1.2.0
+// @version      1.2.1
 // @description  A script that hides the stores and clicks the "Show all deals" button on GGdeals
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
@@ -133,15 +133,14 @@
             if (mutationFound && this.disconnectTimeOut == null) {
                 this.disconnectTimeOut = setTimeout(() => {
                     this.disconnect();
-                }, 5000);
+                }, 3000);
             }
         }
 
         observe(element) {
             this.observer = new MutationObserver(this.callback);
             this.observer.id = element.id;
-            const trueList = element.querySelector("div.game-deals-container > div.load-more-content:has(> div.similar-deals-container)");
-            this.observer.observe(trueList, { childList: true, attributes: true, subtree: true});
+            this.observer.observe(element, { childList: true, attributes: true, subtree: true});
         }
     }
 
