@@ -4,7 +4,8 @@
 // @version      1.1
 // @description  This script will remove all the Shorts watched in your watch history.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
-// @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
+// @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeShortsRemoveWH/YoutubeShortsRemoveWH.user.js
+// @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeShortsRemoveWH/YoutubeShortsRemoveWH.user.js
 // @match        https://www.youtube.com/feed/history
 // @icon         https://www.google.com/s2/favicons?domain=youtube.com
 // @license      MIT
