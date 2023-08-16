@@ -1,16 +1,13 @@
 // ==UserScript==
 // @name         GG.deals filter stores
 // @author       TheFallender
-// @version      1.1.0
+// @version      1.2.0
 // @description  A script that hides the stores and clicks the "Show all deals" button on GGdeals
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
 // @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
 // @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
-// @match        https://gg.deals/game/*
-// @match        https://gg.deals/dlc/*
-// @match        https://gg.deals/pack/*
-// @match        https://gg.deals/gift-card/*
+// @match        https://gg.deals/*/*
 // @icon         https://www.google.com/s2/favicons?domain=gg.deals
 // @license      MIT
 // @copyright    Copyright © 2023 TheFallender
@@ -32,6 +29,7 @@
         "Indie Gala Store",
         "JoyBuggy",
         "Noctre",
+        "Startselect",
         "Voidu",
 
         // Grey Market
@@ -55,7 +53,7 @@
     //Main selector for the show more
     const storeSelector = 'div.similar-deals-container > div.game-deals-item';
     const showAllDealsButton = 'div.btn-show-more-container > button.btn-show-more';
-    const listsOfDeals = 'div.offer-section > div.game-deals-container > div';
+    const listsOfDeals = 'div.offer-section:has(> div.game-deals-container > div.load-more-content > div.similar-deals-container)';
 
     // Sleep method for easier use
     function sleep(msTime) {
@@ -107,44 +105,43 @@
     // Filter the Stores
     function filterStore() {
         document.querySelectorAll(storeSelector).forEach((store) => {
-            const storeName = store.getAttribute('data-shop-name');
-            if (storesToHide.includes(storeName.toLowerCase())) {
-                store.parentNode.remove();
+            const storeName = store.getAttribute('data-shop-name').toLowerCase();
+            if (storesToHide.includes(storeName)) {
+                store.parentNode.setAttribute('style', 'display: none !important');
             }
         });
     }
 
     class observerData {
-        observer = null;
-        childMutation = false;
-        timeOut = null;
-
         callback(mutations) {
-            for (let i = 0; i < mutations.length; i++) {
-                if (mutations[i].type === 'childList' && mutations[i].removedNodes.length > 0) {
-                    this.childMutation = true;
-                    this.timeOut = setTimeout(() => {
-                        filterStore();
-                        this.disconnect();
-                    }, 500);
-                } else if (mutations[i].type === 'attributes' && this.childMutation) {
-                    clearTimeout(this.timeOut);
-                    this.timeOut = setTimeout(() => {
-                        filterStore();
-                        this.disconnect();
-                    }, 50);
-                    break;
+            let mutationFound = false;
+            mutationFound = mutations.find((mutation) => {
+                if (mutation.type === 'childList') {
+                    return true;
                 }
+            });
+
+            // Filter timeout
+            if (mutationFound) {
+                clearTimeout(this.timeOut);
+                this.timeOut = setTimeout(() => {
+                    filterStore();
+                }, 50);
+            }
+
+            // Disconnect timeout
+            if (mutationFound && this.disconnectTimeOut == null) {
+                this.disconnectTimeOut = setTimeout(() => {
+                    this.disconnect();
+                }, 5000);
             }
         }
 
         observe(element) {
             this.observer = new MutationObserver(this.callback);
-            this.observer.observe(element, { childList: true, attributes: true, subtree: true});
-        }
-
-        disconnect() {
-            this.observer.disconnect();
+            this.observer.id = element.id;
+            const trueList = element.querySelector("div.game-deals-container > div.load-more-content:has(> div.similar-deals-container)");
+            this.observer.observe(trueList, { childList: true, attributes: true, subtree: true});
         }
     }
 
