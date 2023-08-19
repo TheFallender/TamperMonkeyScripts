@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HowLongToBeat filter
 // @author       TheFallender
-// @version      1.0.0
+// @version      1.0.1
 // @description  A script that filters the games on HowLongToBeat by years or score.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/HowLongToBeatFilter/HowLongToBeatFilter.user.js
@@ -130,9 +130,8 @@
     };
 
     // Wait for the lists to be loaded
-    waitForElement(gameRowSel).then(async (gameRow) => {
+    waitForElement(gameListInfoSel).then(async (gameListInfo) => {
         // Get the games list
-        const gameListInfo = document.querySelector(gameListInfoSel);
         const gameListRandom = gameListInfo.querySelector(gameListRandomSel);
 
         // Add the filter button
