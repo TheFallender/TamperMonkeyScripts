@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.2
+// @version      1.1.3
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -19,19 +19,12 @@
 
     // Drops to always show
     const dropsToShow = [
-		"Apex Legends",
-		"Baldur's Gate 3",
-		"BattleBit Remastered",
-		"Escape from Tarkov",
-		"Genshin Impact",
-		"HAWKED",
-		"Halo Infinite",
-		"Marauders",
-		"Overwatch 2",
-		"PAYDAY 2",
-		"Rust",
-		"Sea of Thieves",
-		"VALORANT",
+        /* Games that you want to show
+        * "Apex Legends",
+        * "Rust",
+        * "Sea of Thieves",
+        * and more
+        */ 
     ];
 
     // Which drops to hide
@@ -41,16 +34,21 @@
         "Apex Legends",
         "ArcheAge",
         "Arena Breakout",
+        "AK-xolotl",
         "Baldur's Gate 3",
         "Battle Teams 2",
         "BattleBit Remastered",
         "Black Desert",
+        "Brawl Stars",
         "Conan Exiles",
         "Conqueror's Blade",
         "Crossfire",
+        "Cyberpunk 2077",
         "DC Dual Force",
         "Dead Island 2",
         "Dofus",
+        "DOFUS Touch",
+        "Dragonheir: Silent Gods",
         "Dungeon Defenders II",
         "Dungeon Fighter Online",
         "Dungeon of the Endless",
@@ -108,6 +106,7 @@
         "PAYDAY 2",
         "PUBG: BATTLEGROUNDS",
         "Paladins",
+        "Party Animals",
         "Path of Exile",
         "Pokémon Trading Card Game",
         "Pokémon UNITE",
@@ -137,6 +136,7 @@
         "Tanki Online",
         "The Crew: Motorfest",
         "The Elder Scrolls Online",
+        "The First Descendant",
         "The Settlers: New Allies",
         "The Tomorrow Children",
         "Torchlight: Infinite",
@@ -153,6 +153,7 @@
         "Warframe",
         "Warhammer Age of Sigmar: Realms of Ruin",
         "Warhammer Online: Age of Reckoning",
+        "Warhaven",
         "West Hunt",
         "With Your Destiny",
         "World of Tanks",
