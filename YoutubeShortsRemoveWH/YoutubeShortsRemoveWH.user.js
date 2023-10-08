@@ -26,12 +26,15 @@
 
     // Selector items
     const waitUntilReadySelector = "button#button.yt-icon-button[aria-label='Notifications']";
-    const selShortsSelf = "ytd-reel-shelf-renderer";
-    const selShortsselfItem = "div#menu.ytd-reel-item-renderer > ytd-menu-renderer > yt-icon-button > button";
+
+    // Classic Shorts
     const selShorts = "ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style='SHORTS'])"
-    const selShortsButton = "yt-button-shape button";
+    const selShortsButton = "button[aria-label='Remove from watch history']";
+
+    // Shorts on shelfs
+    const selShortsSelf = "ytd-reel-shelf-renderer:has(> div#title-container)";
+    const selShortsSelfHamburgerMenu = "div#menu.ytd-reel-item-renderer > ytd-menu-renderer > yt-icon-button#button > button";
     const selMenuRemove = "div.tp-yt-iron-dropdown ytd-menu-service-item-renderer";
-    const selPostToasts = "tp-yt-paper-toast#toast";
 
     // Method to wait for an element in the DOM
     function waitForElement(selector) {
@@ -66,21 +69,19 @@
     // the script will be stalled here
     waitForElement(waitUntilReadySelector).then(async (element) => {
         // Iteration limit
-        for (let iterations = 0; iterations != iterationsLimit; iterations++, await sleep(3000)) {
+        for (let iterations = 0; iterations != iterationsLimit; iterations++, await sleep(3000), window.scrollBy(0, 750)) {
             console.log(`Iteration: ${iterations}`);
 
             // Get the first short shelf
-            let shortsSelf = document.querySelector(selShortsSelf);
-            console.log(`ShortsSelf: ${shortsSelf ? shortsSelf.querySelectorAll(selShorts).length : 'Not found'}`);
+            let shortsSelf = document.querySelectorAll(selShortsSelf);
+            console.log(`ShortsSelf: ${shortsSelf.length}`);
 
             // Shorts
             let shorts = document.querySelectorAll(selShorts);
             console.log(`Shorts: ${shorts.length}`);
 
             // Scroll if not found
-            if (shortsSelf == null && shorts.length == 0) {
-                // Scroll to the bottom to force a refresh
-                window.scrollTo(0, document.documentElement.scrollHeight);
+            if (shortsSelf.length == 0 && shorts.length == 0) {
                 continue;
             }
 
@@ -98,38 +99,37 @@
                 await sleep(timeBetweenWaits);
             }
 
-            // Get the shorts list
-            if (shortsSelf == null) {
-                continue;
+            // Loop through the shorts shelf
+            for (let i = 0; i < shortsSelf.length; i++) {
+                // Get the shorts
+                let shortsSelfList = shortsSelf[i].querySelectorAll(selShortsSelfHamburgerMenu);
+
+                // Go to each menu and remove it
+                for (let i = 0; i < shortsSelfList.length; i++) {
+                    // Click the button to show the toast
+                    shortsSelfList[i].click();
+                    await sleep(250);
+
+                    // Click on the remove on the toast
+                    let shortMenu = document.querySelectorAll(selMenuRemove);
+
+                    // Find the remove button
+                    let removeButton = shortMenu.find((menuItem) => {
+                        if (menuItem.textContent.toLowerCase().includes('remove')) {
+                            return true;
+                        }
+                    });
+
+                    // Click the button
+                    removeButton.click();
+
+                    // Wait the time for the next short
+                    await sleep(timeBetweenWaits);
+                }
+
+                // Remove the shelf
+                shortsSelf[i].remove();
             }
-
-            let shortsList = shortsSelf?.querySelectorAll(selShorts);
-            for (let i = 0; i < shortsList.length; i++) {
-                let short = shortsList[i];
-
-                // Click the button to show the toast
-                short.click();
-                await sleep(250);
-
-                // Click on the remove on the toast
-                let shortMenu = document.querySelectorAll(selMenuRemove);
-
-                // Find the remove button
-                let removeButton = shortMenu.find((menuItem) => {
-                    if (menuItem.textContent.toLowerCase().includes('remove')) {
-                        return true;
-                    }
-                });
-
-                // Click the button
-                removeButton.click();
-
-                // Wait the time for the next short
-                await sleep(timeBetweenWaits);
-            }
-
-            // Remove the list
-            shortsSelf.remove()
         }
 
         location.reload();
