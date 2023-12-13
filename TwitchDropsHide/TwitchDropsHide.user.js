@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.3
+// @version      1.1.4
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -201,9 +201,19 @@
         "XERA: Survival",
     ];
 
+    const companiesToShow = [
+        "Rust",
+    ]
+
+    const companies = [
+        "PC Game Pass",
+        "Rust",
+    ]
+
     //Main selector for the show more
-    const dropsListSel = 'div.drops-root__content > div > div:has(>div.accordion-header h3.tw-title)';
+    const dropsListSel = 'div.drops-root__content div:has(>div.accordion-header h3.tw-title)';
     const dropTitleSel = 'div.accordion-header h3.tw-title';
+    const dropCompanySel = 'div.accordion-header p[class*=CoreText]';
 
     //Method to wait for an element in the DOM
     function waitForElement(selector, selectorAll = false) {
@@ -252,19 +262,23 @@
         const body = document.querySelector("body");
         const observer = new MutationObserver(mutations => {
             mutations.forEach(() => {
-                if (oldHref !== document.location.href && document.location.href.includes("/drops/campaigns")) {
+                if (oldHref !== document.location.href) {
                     oldHref = document.location.href;
-                    //Wait for the drops
-                    waitForElement(dropsListSel, true).then((element) => {
-                        Array.from(element).forEach((drop) => {
-                            if (dropsToShow.includes(drop.querySelector(dropTitleSel).innerText)) {
-                                return;
-                            }
-                            if (dropsToHide.includes(drop.querySelector(dropTitleSel).innerText)) {
-                                drop.setAttribute('style', 'display: none !important');
-                            }
+                    if (document.location.href.includes("/drops/campaigns")) {
+                        //Wait for the drops
+                        waitForElement(dropsListSel, true).then((element) => {
+                            Array.from(element).forEach((drop) => {
+                                if (companiesToShow.includes(drop.querySelector(dropCompanySel).innerText) ||
+                                    dropsToShow.includes(drop.querySelector(dropTitleSel).innerText)) {
+                                    return;
+                                }
+                                if (companies.includes(drop.querySelector(dropCompanySel).innerText) ||
+                                    drops.includes(drop.querySelector(dropTitleSel).innerText)) {
+                                    drop.setAttribute('style', 'display: none !important');
+                                }
+                            });
                         });
-                    });
+                    }
                 }
             });
         });
