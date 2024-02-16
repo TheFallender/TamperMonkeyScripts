@@ -9,7 +9,7 @@
 // @match        https://*.youtube.com/feed/history
 // @icon         https://www.google.com/s2/favicons?domain=youtube.com
 // @license      MIT
-// @copyright    Copyright © 2023 TheFallender
+// @copyright    Copyright © 2024 TheFallender
 // @require      http://code.jquery.com/jquery-3.6.0.min.js
 // @require      http://code.jquery.com/ui/1.12.1/jquery-ui.min.js
 // @grant        none

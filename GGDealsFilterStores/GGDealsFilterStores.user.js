@@ -10,7 +10,7 @@
 // @match        https://gg.deals/*/*
 // @icon         https://www.google.com/s2/favicons?domain=gg.deals
 // @license      MIT
-// @copyright    Copyright © 2023 TheFallender
+// @copyright    Copyright © 2024 TheFallender
 // @grant        none
 // ==/UserScript==
 
