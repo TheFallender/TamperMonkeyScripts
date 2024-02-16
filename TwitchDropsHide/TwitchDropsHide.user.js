@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.4
+// @version      1.1.5
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -55,7 +55,10 @@
         "BattleBit Remastered",
         "Black Desert",
         "Brawl Stars",
+        "Brazen Blaze",
+        "Caliber",
         "Chess",
+        "Clash of Clans",
         "Coin Pusher World",
         "Conan Exiles",
         "Conqueror's Blade",
@@ -72,6 +75,7 @@
         "Dungeon Defenders II",
         "Dungeon Fighter Online",
         "Dungeon of the Endless",
+        "Dying Light 2: Stay Human",
         "Dysterra",
         "EA Sports FC 24",
         "Eco",
@@ -92,8 +96,10 @@
         "GODDESS OF VICTORY: NIKKE",
         "Genshin Impact",
         "Ghostbusters: Spirits Unleashed",
+        "Go Go Muffin",
         "Goose Goose Duck",
         "Gord",
+        "Guardian Tales",
         "Guessr.tv",
         "Guild Wars 2",
         "Gundam Evolution",
@@ -107,6 +113,7 @@
         "Honkai Impact 3rd",
         "Honkai: Star Rail",
         "Honor of Kings",
+        "House Flipper 2",
         "Infestation: The New Z",
         "Kakele Online: MMORPG",
         "KartRider: Drift",
@@ -116,6 +123,7 @@
         "Lost Ark",
         "Lost Light",
         "MLB The Show 23",
+        "MLB The Show 24",
         "Madden NFL 24",
         "Marauders",
         "Marbles on Stream",
@@ -125,11 +133,14 @@
         "Mortal Online 2",
         "My Hero Ultra Rumble",
         "My Time at Sandrock",
+        "NW2Online",
         "NARAKA: BLADEPOINT",
         "Neon Abyss: Infinity",
         "New World",
         "Ninja Must Die",
         "Nitro: Stream Racing",
+        "Oh Baby! Kart",
+        "One Punch Man: World",
         "Operation Valor",
         "OUTERPLANE",
         "Out of the Park Baseball 24",
@@ -137,6 +148,7 @@
         "PAYDAY 2",
         "PUBG: BATTLEGROUNDS",
         "Paladins",
+        "Palia",
         "Party Animals",
         "Path of Exile",
         "Pokémon GO",
@@ -161,11 +173,13 @@
         "Shatterline",
         "Shell Shockers",
         "S.K.I.L.L.: Special Force 2",
+        "Skull and Bones",
         "Slapshot Rebound",
         "Snowbreak: Containment Zone",
         "Splitgate",
         "Starsiege: Deadzone",
         "Stream Raiders",
+        "Suicide Squad: Kill the Justice League",
         "Summoners War: Chronicles",
         "Super Animal Royale",
         "Tanki Online",
@@ -184,11 +198,13 @@
         "VALORANT",
         "Vampire: The Masquerade - Bloodhunt",
         "Veiled Experts",
+        "Venatur",
         "WWE SuperCard",
         "Wakfu",
         "War Thunder",
         "Warface",
         "Warframe",
+        "Warhammer 40,000: Warpforge",
         "Warhammer Age of Sigmar: Realms of Ruin",
         "Warhammer Online: Age of Reckoning",
         "Warhaven",
@@ -208,6 +224,7 @@
     const companies = [
         "PC Game Pass",
         "Rust",
+        "Taco Bell",
     ]
 
     //Main selector for the show more
