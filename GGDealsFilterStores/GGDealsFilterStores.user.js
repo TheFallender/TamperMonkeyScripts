@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GG.deals filter stores
 // @author       TheFallender
-// @version      1.2.2
+// @version      1.2.3
 // @description  A script that hides the stores and clicks the "Show all deals" button on GGdeals
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
