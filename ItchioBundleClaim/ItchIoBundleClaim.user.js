@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Itch.io Bundle Claim
 // @author       TheFallender
-// @version      1.5.1
+// @version      1.5.2
 // @description  This script will claim all the items in a bundle slowly, without sending too many requests to the website
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/ItchioBundleClaim/ItchIoBundleClaim.user.js

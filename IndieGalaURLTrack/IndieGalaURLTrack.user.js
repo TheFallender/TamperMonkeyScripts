@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IndieGala Remove URL Trackers from Links
 // @author       TheFallender
-// @version      1.0.0
+// @version      1.0.1
 // @description  Remove tracking parameters from URLs in a tags
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/IndieGalaURLTrack/IndieGalaURLTrack.user.js

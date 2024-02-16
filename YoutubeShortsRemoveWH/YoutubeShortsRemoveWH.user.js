@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Youtube Shorts - Remove from WH
 // @author       TheFallender
-// @version      1.3.0
+// @version      1.3.1
 // @description  This script will remove all the Shorts watched in your watch history.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeShortsRemoveWH/YoutubeShortsRemoveWH.user.js

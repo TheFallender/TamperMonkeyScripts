@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Udemy Show More
 // @author       TheFallender
-// @version      1.4.1
+// @version      1.4.2
 // @description  A script that will show all your elements in your collections.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/UdemyShowMore/UdemyShowMore.user.js

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HowLongToBeat filter
 // @author       TheFallender
-// @version      1.0.1
+// @version      1.0.2
 // @description  A script that filters the games on HowLongToBeat by years or score.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/HowLongToBeatFilter/HowLongToBeatFilter.user.js

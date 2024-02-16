@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Reddit Mass Unhide
 // @author       TheFallender
-// @version      1.2.2
+// @version      1.2.3
 // @description  This script will unhide all your hidden posts, cause reddit sucks and doesn't have this feature by default.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/RedditMassUnhide/RedditMassUnhide.user.js
