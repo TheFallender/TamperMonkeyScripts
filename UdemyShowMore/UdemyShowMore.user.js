@@ -10,7 +10,7 @@
 // @match        https://www.udemy.com/home/my-courses/lists*
 // @icon         https://www.google.com/s2/favicons?domain=udemy.com
 // @license      MIT
-// @copyright    Copyright © 2023 TheFallender
+// @copyright    Copyright © 2024 TheFallender
 // @grant        none
 // ==/UserScript==
 

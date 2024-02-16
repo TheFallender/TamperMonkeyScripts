@@ -11,7 +11,7 @@
 // @match        https://*.itch.io/*/download/*
 // @icon         https://www.google.com/s2/favicons?domain=itch.io
 // @license      MIT
-// @copyright    Copyright © 2023 TheFallender
+// @copyright    Copyright © 2024 TheFallender
 // @grant        none
 // ==/UserScript==
 
