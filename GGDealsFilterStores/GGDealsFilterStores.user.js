@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GG.deals filter stores
 // @author       TheFallender
-// @version      1.2.1
+// @version      1.2.2
 // @description  A script that hides the stores and clicks the "Show all deals" button on GGdeals
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/GGDealsFilterStores/GGDealsFilterStores.user.js
@@ -54,6 +54,7 @@
     const storeSelector = 'div.similar-deals-container > div.game-deals-item';
     const showAllDealsButton = 'div.btn-show-more-container > button.btn-show-more';
     const listsOfDeals = 'div.offer-section:has(> div.game-deals-container > div.load-more-content > div.similar-deals-container)';
+    const priceHistorySelector = 'a.game-lowest-prices-keyshops-switch.active'
 
     // Sleep method for easier use
     function sleep(msTime) {
@@ -164,5 +165,10 @@
     // Wait for the stores to be loaded
     waitForElement(storeSelector, true).then(async (stores) => {
         filterStore();
+    });
+
+    // Wait for the price history
+    waitForElement(priceHistorySelector, false).then(async (priceHistory) => {
+        priceHistory.click();
     });
 })();
