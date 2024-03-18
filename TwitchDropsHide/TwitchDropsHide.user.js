@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.6
+// @version      1.1.7
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -28,6 +28,7 @@
 		"Genshin Impact",
 		"Halo Infinite",
 		"Marauders",
+        "Nightingale",
 		"Overwatch 2",
 		"PAYDAY 2",
         "PAYDAY 3",
@@ -55,6 +56,7 @@
         "BattleBit Remastered",
         "Black Desert",
         "Brawl Stars",
+        "Brawlhalla",
         "Brazen Blaze",
         "Caliber",
         "Chess",
@@ -62,6 +64,7 @@
         "Coin Pusher World",
         "Conan Exiles",
         "Conqueror's Blade",
+        "Coryphaeus Championships",
         "Crossfire",
         "Crossout",
         "Cyberpunk 2077",
@@ -133,10 +136,12 @@
         "Mortal Online 2",
         "My Hero Ultra Rumble",
         "My Time at Sandrock",
+        "Myth of Empires",
         "NW2Online",
         "NARAKA: BLADEPOINT",
         "Neon Abyss: Infinity",
         "New World",
+        "Nightingale",
         "Ninja Must Die",
         "Nitro: Stream Racing",
         "Oh Baby! Kart",
@@ -144,6 +149,7 @@
         "Operation Valor",
         "OUTERPLANE",
         "Out of the Park Baseball 24",
+        "Out of the Park Baseball 25",
         "Overwatch 2",
         "PAYDAY 2",
         "PUBG: BATTLEGROUNDS",
@@ -190,6 +196,7 @@
         "The Tomorrow Children",
         "Torchlight: Infinite",
         "Tower of Fantasy",
+        "TRIBES 3: Rivals",
         "Trust No Bunny",
         "Undying",
         "UNDAWN",
@@ -215,6 +222,7 @@
         "World of Warcraft",
         "World of Warships",
         "XERA: Survival",
+        "Zombie Within",
     ];
 
     const companiesToShow = [
@@ -291,7 +299,7 @@
                                 }
                                 if (companies.includes(drop.querySelector(dropCompanySel).innerText) ||
                                     drops.includes(drop.querySelector(dropTitleSel).innerText)) {
-                                    drop.setAttribute('style', 'display: none !important');
+                                    drop.remove()
                                 }
                             });
                         });
