@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Youtube Shorts - Remove from WH
 // @author       TheFallender
-// @version      1.3.1
+// @version      1.3.2
 // @description  This script will remove all the Shorts watched in your watch history.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeShortsRemoveWH/YoutubeShortsRemoveWH.user.js
@@ -27,8 +27,9 @@
     // Selector items
     const waitUntilReadySelector = "button#button.yt-icon-button div.yt-spec-icon-badge-shape--type-notification svg";
     const selShortsSelf = "ytd-reel-shelf-renderer";
-    const selShortsSelfItems = "div#items";
-    const selShortsSelfMenu = "ytd-reel-item-renderer:not(:has(div#menu > ytd-menu-renderer))";
+    const selShortsSelfItemsList = "div#items";
+    const selShortsSelfVideos = "div#items > ytd-reel-item-renderer";
+    const selShortsSelfUnloadedVideo = "ytd-reel-item-renderer:not(:has(div#menu > ytd-menu-renderer))";
     const selShortsSelfMenuButton = "div#menu.ytd-reel-item-renderer > ytd-menu-renderer > yt-icon-button > button";
     const selShorts = "ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style='SHORTS'])"
     const selShortsButton = "yt-button-shape button";
@@ -83,7 +84,7 @@
 
             // Get the first short shelf
             let shortsSelf = document.querySelector(selShortsSelf);
-            console.log(`ShortsSelf: ${shortsSelf ? shortsSelf.querySelectorAll(selShortsSelfItems).length : 'Not found'}`);
+            console.log(`ShortsSelf: ${shortsSelf ? shortsSelf.querySelectorAll(selShortsSelfVideos).length : 'Not found'}`);
 
             // Shorts
             let shorts = document.querySelectorAll(selShorts);
@@ -116,22 +117,22 @@
             }
 
             // Check if we have videos that have yet to load
-            let shortsSelfVideos = shortsSelf.querySelector(selShortsSelfItems);
+            let shortsSelfVideosList = shortsSelf.querySelector(selShortsSelfItemsList);
             unloadedVideos = null;
             do {
-                unloadedVideos = shortsSelfVideos.querySelectorAll(selShortsSelfMenu)
+                unloadedVideos = shortsSelfVideosList.querySelectorAll(selShortsSelfUnloadedVideo)
                 if (unloadedVideos.length > 0) {
                      await sleep(5000)
                 }
             } while (unloadedVideos.length > 0)
 
             //Shorts Shelf
-            let shortsList = shortsSelf?.querySelectorAll(selShortsSelfMenuButton);
-            while (shortsList.length > 0) {
-                let short = shortsList[0];
+            let shortsSelfVideos = shortsSelf.querySelectorAll(selShortsSelfVideos);
+            while (shortsSelfVideos.length > 0) {
+                let short = shortsSelfVideos[0];
 
                 // Click the button to show the toast
-                short.click();
+                short.querySelector(selShortsSelfMenuButton).click()
                 await sleep(250);
 
                 // Click on the remove on the toast
@@ -146,12 +147,13 @@
 
                 // Click the button
                 removeButton.click();
+                short.remove()
 
                 // Wait the time for the next short
                 await sleep(timeBetweenWaits);
 
                 // Check again for the amount of videos
-                shortsList = shortsSelf?.querySelectorAll(selShortsSelfMenuButton);
+                shortsSelfVideos = shortsSelf.querySelectorAll(selShortsSelfVideos);
             }
 
             // Remove the list
