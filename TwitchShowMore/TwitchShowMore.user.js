@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.9.2
+// @version      1.9.3
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
@@ -25,6 +25,11 @@
         'div.side-nav-section[aria-label="Recommended Channels"]',
         'div.side-nav-section[aria-label*="Viewers Also Watch"]'
     ];
+
+    // Sleep method for easier use
+    function sleep (msTime) {
+        return new Promise(r => setTimeout(r, msTime));
+    }
 
     //Method to wait for an element in the DOM
     function waitForElement(selector) {
@@ -57,20 +62,6 @@
         });
     }
 
-    //Wait until the followed channel button is loaded
-    waitForElement(followedChannelsSelector).then((element) => {
-        //Assign the show more element to the one it waited for
-        let showMoreElement = element;
-
-        //Loop until the Toggle doesn't have the "Show More" text
-        for (; showMoreElement && showMoreElement.textContent == "Show More"; showMoreElement = document.querySelector(followedChannelsSelector)) {
-            showMoreElement.click();
-        }
-
-        //Hide the show more/show less button
-        showMoreElement.setAttribute('style', 'display: none !important');
-    });
-
     //Remove the side nav bloat
     function removeBloat () {
         let oldHref = "";
@@ -83,6 +74,21 @@
                         waitForElementAndRemove(element);
                     });
                 }
+            });
+
+            //Wait until the followed channel button is loaded
+            waitForElement(followedChannelsSelector).then(async (element) => {
+                //Assign the show more element to the one it waited for
+                let showMoreElement = element;
+
+                //Loop until the Toggle doesn't have the "Show More" text
+                for (; showMoreElement && showMoreElement.textContent == "Show More"; showMoreElement = document.querySelector(followedChannelsSelector)) {
+                    showMoreElement.click();
+                    await sleep(100);
+                }
+
+                //Hide the show more/show less button
+                showMoreElement.setAttribute('style', 'display: none !important');
             });
         });
         observer.observe(body, { childList: true, subtree: true });
