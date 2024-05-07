@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.1.7
+// @version      1.1.8
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -20,10 +20,10 @@
     // Drops to always show
     const dropsToShow = [
 		"Apex Legends",
-        "Assassin's Creed Mirage",
 		"Baldur's Gate 3",
 		"BattleBit Remastered",
         "Cyberpunk 2077",
+        "Destiny 2",
 		"Escape from Tarkov",
 		"Genshin Impact",
 		"Halo Infinite",
@@ -35,6 +35,7 @@
         "Pokémon GO",
 		"Rust",
 		"Sea of Thieves",
+        "Tom Clancy's Rainbow Six Siege",
 		"VALORANT",
     ];
 
@@ -71,6 +72,7 @@
         "DC Dual Force",
         "Dead Island 2",
         "Deceive Inc.",
+        "Destiny 2",
         "Disney Speedstorm",
         "Dofus",
         "DOFUS Touch",
@@ -133,6 +135,7 @@
         "Marvel Snap",
         "Mir Korabley",
         "Mir Tankov",
+        "Mortal Kombat 1",
         "Mortal Online 2",
         "My Hero Ultra Rumble",
         "My Time at Sandrock",
@@ -170,6 +173,7 @@
         "Riders Republic",
         "Rise Online",
         "Rocket League",
+        "Rumble Club",
         "Rust",
         "SMITE",
         "STALCRAFT",
@@ -194,6 +198,8 @@
         "The First Descendant",
         "The Settlers: New Allies",
         "The Tomorrow Children",
+        "Tom Clancy's Rainbow Six Siege",
+        "TopSpin 2K25",
         "Torchlight: Infinite",
         "Tower of Fantasy",
         "TRIBES 3: Rivals",
@@ -210,6 +216,7 @@
         "Wakfu",
         "War Thunder",
         "Warface",
+        "Warface: Clutch",
         "Warframe",
         "Warhammer 40,000: Warpforge",
         "Warhammer Age of Sigmar: Realms of Ruin",
@@ -218,7 +225,7 @@
         "West Hunt",
         "With Your Destiny",
         "World of Tanks",
-        "World of Tanks",
+        "World of Tanks Console",
         "World of Warcraft",
         "World of Warships",
         "XERA: Survival",
