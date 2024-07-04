@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.2.0
+// @version      1.2.1
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -17,12 +17,17 @@
 (function () {
     'use strict';
 
-    //Main selector for the show more
+    // List selectors of drops and rewards
     const dropsListSel = 'div.drops-root__content > div > div:has(>div.accordion-header h3.tw-title)';
     const rewardsListSel = 'div.drops-root__content > div > div > div:has(>div.accordion-header h3.tw-title)';
+
+    // Selector of data of the drops/rewards
     const dropsGameTitleSel = 'div.accordion-header h3.tw-title';
     const rewardsCompanySel = 'div.accordion-header p[class*=CoreText]';
     const rewardsGameSel = 'a.tw-link[href*="/directory/category/"]';
+
+    // Bloat on the drops
+    const bloatTextInfo = 'div.drops-root__content > div > div:has(> span)';
 
     // Drops to always show
     const dropsGamesToShow = [
@@ -347,6 +352,13 @@
                         // This will leave games not defined in either out, better that way than
                         // missing drops of new games.
 
+                        // Bloat
+                        waitForElement(bloatTextInfo, true).then((element) => {
+                            Array.from(element).forEach((bloat) => {
+                                bloat.remove();
+                            });
+                        });
+
                         //Wait for the Drops
                         waitForElement(dropsListSel, true).then((element) => {
                             Array.from(element).forEach((drop) => {
@@ -364,7 +376,7 @@
                                 }
                             });
                         });
-                        
+
                         //Wait for the Reward campaigns
                         waitForElement(rewardsListSel, true).then((element) => {
                             Array.from(element).forEach((drop) => {
