@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HowLongToBeat filter
 // @author       TheFallender
-// @version      1.0.2
+// @version      1.0.3
 // @description  A script that filters the games on HowLongToBeat by years or score.
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/HowLongToBeatFilter/HowLongToBeatFilter.user.js
@@ -18,8 +18,8 @@
     'use strict';
 
     //Main selectors
-    const gameRowSel = "tbody.spreadsheet";
-    const gameListHeaderSel = "table > thead > tr";
+    const gameRowSel = "div[class*='UserGameList_table_divider']";
+    const gameListHeaderSel = "div.table_head[class*='UserGameList_header']";
     const gameListInfoSel = "div.mobile_hide:has(select)";
     const gameListRandomSel = "button[aria-label='Random']";
 
@@ -70,15 +70,15 @@
         //Get the games list
         function validPrompt(textForPrompt) {
             const promptReply = Number(prompt(textForPrompt));
-            /* Check if the prompt is valid */
+            // Check if the prompt is valid
             if (!promptReply || promptReply === "NaN") {
                 alert("Not a valid input.");
                 return null;
             }
             return promptReply;
         };
-        
-        /* Get Games list */
+
+        // Get Games list
         const gamesList = Array.from(document.querySelectorAll(gameRowSel)).map((game) => {
             return {
                 gameName: game.childNodes[0].childNodes[0].childNodes[0].textContent,
@@ -87,16 +87,16 @@
                 element: game
             }
         });
-        
-        /* Show all the games if this script is being run multiple times */
+
+        // Show all the games if this script is being run multiple times
         gamesList.forEach((game) => {
             game.element.style.display = "";
         });
-        
-        /* Get the filter type */
+
+        // Get the filter type
         const filterType = validPrompt("Filter you want to apply:\n1. Year.\n2. Score");
-        
-        /* Apply the filter */
+
+        // Apply the filter
         let filteredList = null;
         let excludedElements = null;
         let filterApplied = null;
@@ -111,34 +111,60 @@
         } else {
             alert("Not a valid input.");
         };
-        
-        /* Print the filteredList in a cool way */
+
+        // Print the filteredList in a cool way
         const listHeader = `Filtered list with ${filteredList.length} games. ${filterType === 1 ? "Year" : "Score"} ${filterApplied}`;
         let printList = `${listHeader}\n`;
         filteredList.forEach((game, index) => {
             printList += `${index + 1} => ${game.gameName}\n\t\t${game.score}\n\t\t${game.date}\n`;
         });
         console.log(printList);
-        
-        /* Change the table header */
-        document.querySelector(gameListHeaderSel).childNodes[0].textContent = listHeader;
-        
-        /* Hide the excluded elements */
+
+        // Change the table header
+        document.querySelector(gameListHeaderSel).textContent = listHeader;
+
+        // Hide the excluded elements
         excludedElements.forEach((game) => {
             game.element.style.display = "none";
         });
     };
 
-    // Wait for the lists to be loaded
-    waitForElement(gameListInfoSel).then(async (gameListInfo) => {
-        // Get the games list
-        const gameListRandom = gameListInfo.querySelector(gameListRandomSel);
 
-        // Add the filter button
-        const filterButton = gameListInfo.insertBefore(document.createElement("button"), gameListRandom);
-        filterButton.classList = "form_button back_blue";
-        filterButton.style.marginRight = "5px";
-        filterButton.innerHTML = "<span style=\"line-height: 0;\">Ⴤ</span> Filter";
-        filterButton.onclick = filterGames;
-    });
+
+    // Check if the user is in the games page
+    function addFilters () {
+        let oldHref = "";
+        const body = document.querySelector("body");
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(() => {
+                if (oldHref !== document.location.href) {
+                    oldHref = document.location.href;
+                    if (document.location.href.match("/user/.*/games/.*") != null) {
+                        // Wait for the lists to be loaded
+                        waitForElement(gameListInfoSel).then(async (gameListInfo) => {
+                            // Get the games list
+                            const gameListRandom = gameListInfo.querySelector(gameListRandomSel);
+
+                            // Check if the filter button already exists
+                            if (gameListInfo.querySelector("#filterButton") != null) {
+                                return;
+                            }
+
+                            // Add the filter button
+                            const filterButton = gameListInfo.insertBefore(document.createElement("button"), gameListRandom);
+                            filterButton.id = "filterButton";
+                            filterButton.classList = "form_button back_blue";
+                            filterButton.style.marginRight = "5px";
+                            filterButton.innerHTML = "<span style=\"line-height: 0;\">Ⴤ</span> Filter";
+                            filterButton.onclick = filterGames;
+                        });
+                    }
+                }
+            });
+        });
+        observer.observe(body, { childList: true, subtree: true });
+    }
+
+    //Start the script
+    addFilters();
 })();
