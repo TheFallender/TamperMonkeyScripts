@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Show More
 // @author       TheFallender
-// @version      1.9.3
+// @version      1.9.4
 // @description  A script that will show all your streammers and hide the bloat
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchShowMore/TwitchShowMore.user.js
@@ -19,12 +19,6 @@
 
     //Main selector for the show more
     const followedChannelsSelector = 'div.side-nav-show-more-toggle__button button';
-
-    //Side Nav Bloat
-    const sideNavBloat = [
-        'div.side-nav-section[aria-label="Recommended Channels"]',
-        'div.side-nav-section[aria-label*="Viewers Also Watch"]'
-    ];
 
     // Sleep method for easier use
     function sleep (msTime) {
@@ -55,27 +49,10 @@
         });
     }
 
-    //Method to remove the element after finding it
-    function waitForElementAndRemove(selector) {
-        waitForElement(selector).then(element => {
-            element.setAttribute('style', 'display: none !important');
-        });
-    }
-
     //Remove the side nav bloat
     function removeBloat () {
-        let oldHref = "";
         const body = document.querySelector("body");
         const observer = new MutationObserver(mutations => {
-            mutations.forEach(() => {
-                if (oldHref !== document.location.href) {
-                    oldHref = document.location.href;
-                    sideNavBloat.forEach(element => {
-                        waitForElementAndRemove(element);
-                    });
-                }
-            });
-
             //Wait until the followed channel button is loaded
             waitForElement(followedChannelsSelector).then(async (element) => {
                 //Assign the show more element to the one it waited for
