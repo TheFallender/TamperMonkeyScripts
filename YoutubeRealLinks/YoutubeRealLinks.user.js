@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Youtube Real Links
 // @author       TheFallender
-// @version      1.0.0
+// @version      1.0.1
 // @description  Will replace the links with the actual content, not the Youtube Redirect
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeRealLinks/YoutubeRealLinks.user.js
 // @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/YoutubeRealLinks/YoutubeRealLinks.user.js
 // @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
-// @match        https://www.youtube.com/*
+// @match        https://www.youtube.com/watch*
 // @icon         https://www.google.com/s2/favicons?domain=youtube.com
 // @license      MIT
 // @copyright    Copyright © 2024 TheFallender
@@ -48,6 +48,10 @@
 
             //Wait for the element to be in the DOM
             const observer = new MutationObserver(mutations => {
+                if (oldHref !== document.location.href) {
+                    resolve([]);
+                    observer.disconnect();
+                }
                 if (!selectorAll) {
                     const element = document.querySelector(selector);
                     if (element) {
