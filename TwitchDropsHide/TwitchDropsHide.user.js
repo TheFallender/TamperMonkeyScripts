@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Twitch Drops only show interesting
 // @author       TheFallender
-// @version      1.2.4
+// @version      1.2.5
 // @description  A script that hides the drops not interesting to the user
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/TwitchDropsHide/TwitchDropsHide.user.js
@@ -52,8 +52,10 @@
         "Hunt: Showdown 1896",
         "Last Epoch",
 		"Marauders",
+        "Marvel Rivals",
         "Nightingale",
         "Palworld",
+        "Path of Exile",
         "Path of Exile 2",
 		"PAYDAY 2",
         "PAYDAY 3",
@@ -199,6 +201,7 @@
         "Mafiathon 2",
         "Marauders",
         "Marbles on Stream",
+        "MARVEL Contest of Champions",
         "Marvel Rivals",
         "Marvel Snap",
         "Mecha BREAK",
@@ -224,6 +227,7 @@
         "Neon Abyss: Infinity",
         "NextWorld2",
         "New World",
+        "New World: Aeternum",
         "Nightingale",
         "Ninja Must Die",
         "Nitro: Stream Racing",
@@ -326,6 +330,7 @@
         "TRIBES 3: Rivals",
         "Trust No Bunny",
         "Trove",
+        "UFL",
         "Undying",
         "UNDAWN",
         "UNDECEMBER",
