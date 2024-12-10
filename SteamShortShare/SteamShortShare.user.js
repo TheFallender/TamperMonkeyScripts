@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Steam Short Share
 // @author       TheFallender
-// @version      1.0.2
+// @version      1.0.3
 // @description  Will replace the links of sharing with the s.team/a/<id> format
 // @homepageURL  https://github.com/TheFallender/TamperMonkeyScripts
 // @updateURL    https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/SteamShortShare/SteamShortShare.user.js
 // @downloadURL  https://raw.githubusercontent.com/TheFallender/TamperMonkeyScripts/master/SteamShortShare/SteamShortShare.user.js
 // @supportURL   https://github.com/TheFallender/TamperMonkeyScripts
-// @match        https://store.steampowered.com/*
+// @match        https://store.steampowered.com/app/*
 // @icon         https://www.google.com/s2/favicons?domain=s.team
 // @license      MIT
 // @copyright    Copyright © 2024 TheFallender
